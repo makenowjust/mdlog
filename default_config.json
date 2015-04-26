@@ -2,6 +2,9 @@
   "mdast_yaml": false,
   "mdast_breaks": true,
 
+  "mdast_rule": "-",
+  "mdast_ruleRepetition": 10,
+
   "stringify": true,
 
   "root_block": true,
