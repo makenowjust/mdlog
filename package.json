@@ -1,0 +1,25 @@
+{
+  "name": "mdlog",
+  "version": "0.1.0",
+  "description": "Markdown on `console.log`",
+  "author": "TSUYUSATO Kitsune <make.just.on@gmail.com>",
+  "keywords": ["markdown", "console", "log"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MakeNowJust/mdlog.git"
+  },
+  "homepage": "https://github.com/MakeNowJust/mdlog",
+  "bugs": "https://github.com/MakeNowJust/mdlog/issues",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "convert.js",
+    "config.js",
+    "default_config.json"
+  ],
+  "dependencies": {
+    "mdast": "^0.19.0"
+  }
+}
