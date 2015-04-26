@@ -15,4 +15,3 @@ console.log([
   '',
   'see <http://en.wikipedia.org/wiki/Markdown>.',
 ].join('\n'));
-
