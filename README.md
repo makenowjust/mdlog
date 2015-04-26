@@ -48,6 +48,7 @@ $ npm install --save mdlog
 
 First it pass its arguments to `util.format`, then call `convert` with this result and `config`.
 
+- - -
 
 #### `convert = require('mdlog/convert')`
 
@@ -61,6 +62,7 @@ It follows two arguments.  First argument is `markdown`. It is Markdown text.  S
   - `config.<node_type>_bold`, `config.<node_type>_italic`, `config.<node_type>_underline`, `config.<node_type>_delete` and `config.<node_type>_color` is decoration config.
   - `config.<node_type>_block` is whether `<node_type>` is block.
 
+- - -
 
 #### `config = require('mdlog/config')`
 
@@ -70,6 +72,7 @@ It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG
 $ env MDLOG_CONFIG='heading_color:32' node sample/readme.js
 ```
 
+- - -
 
 #### `require('mdlog/override')`
 
