@@ -6,7 +6,7 @@ defaultConfig = require('./default_config');
 function lcsv(string, def) {
   return string.split(',').map(function (item) {
     var
-    idx = item.indexOf('=');
+    idx = item.indexOf(':');
     if (idx === -1) {
       return [item, true];
     }
