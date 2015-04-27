@@ -7,6 +7,7 @@
 
   "stringify": true,
 
+  "root_stringify": false,
   "root_block": true,
 
   "blockquote_block": true,
