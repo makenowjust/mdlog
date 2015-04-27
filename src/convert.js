@@ -3,7 +3,8 @@
 // loading package
 var
 _     = require('lodash'),
-mdast = require('mdast');
+mdast = require('mdast'),
+prop  = require('./property');
 
 // ## class Converter
 //
@@ -62,8 +63,8 @@ Converter.prototype.wrapList = function wrapList(node) {
     };
   }.bind(this));
 
-  esc = escCode(this.status);
-  string = esc + mdast.stringify(node, mdastConfig(this.config)) + escCode(_status, !!esc);
+  esc = escCode(this.status, false, this.config);
+  string = esc + mdast.stringify(node, mdastConfig(this.config)) + escCode(_status, !!esc, this.config);
 
   this.status = _status;
 
@@ -97,8 +98,8 @@ Converter.prototype.wrap = function wrap(node) {
     string = mdast.stringify(node, mdastConfig(this.config));
   }
 
-  esc = escCode(this.status);
-  string = esc + string + escCode(_status, !!esc);
+  esc = escCode(this.status, false, this.config);
+  string = esc + string + escCode(_status, !!esc, this.config);
 
   this.status = _status;
 
@@ -124,6 +125,7 @@ function nodeConfig(config, type) {
   nodeConfig.underline = bool(config[type + '_underline']);
   nodeConfig.delete = bool(config[type + '_delete']);
   nodeConfig.color = config[type + '_color'];
+  nodeConfig.background = config[type + '_background'];
 
   return config[type] = nodeConfig;
 }
@@ -149,6 +151,7 @@ function updateStatus(status, config) {
   status.underline = typeof config.underline === 'undefined' ? status.underline : config.underline;
   status.delete = typeof config.delete === 'undefined' ? status.delete : config.delete;
   status.color = config.color || status.color;
+  status.background = config.background || status.background;
 }
 
 function copyStatus(status) {
@@ -158,11 +161,12 @@ function copyStatus(status) {
     underline: status.underline,
     delete: status.delete,
     color: status.color,
+    background: status.background,
   };
 }
 
 // get escape sequence from `status`
-function escCode(status, reset) {
+function escCode(status, reset, config) {
   var
   flags = [];
 
@@ -174,13 +178,14 @@ function escCode(status, reset) {
       status.delete === false) flags.push('0');
 
   // set styles
-  if (status.bold) flags.push('1');
-  if (status.italic) flags.push('3');
-  if (status.underline) flags.push('4');
-  if (status.delete) flags.push('9');
-  if (status.color) flags.push(status.color);
+  if (status.bold) flags.push(prop('bold'));
+  if (status.italic) flags.push(prop('italic'));
+  if (status.underline) flags.push(prop('underline'));
+  if (status.delete) flags.push(prop('delete'));
+  if (status.color) flags.push(prop('color', status.color, config));
+  if (status.background) flags.push(prop('background', status.background, config));
 
-  return flags.length === 0 ? '' : '\u001b[' + flags.join(';') + 'm';
+  return flags.length === 0 ? '' : '\u001b[' + flags.filter(Boolean).join(';') + 'm';
 }
 
 // convert string to bool
