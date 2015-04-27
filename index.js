@@ -18,5 +18,5 @@ module.exports = function mdlog(markdown, config) {
   var
   string = convert(markdown, config);
 
-  log(string);
+  log.apply(console, string);
 };
