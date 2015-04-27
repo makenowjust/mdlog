@@ -46,7 +46,7 @@ $ npm install --save mdlog
 
 `mdlog` is the implementation of `mdlog/override`'s `console.log`. You can use it without `console.log` pollution.
 
-First it pass its arguments to `util.format`, then call `convert` with this result and `config`.
+It calls `convert` with this first argument `markdown` and second argument `config` merged `defaultConfig` and prints.
 
 - - -
 
@@ -82,7 +82,7 @@ $ env MDLOG_CONFIG='heading_color:32' node sample/readme.js
 
 #### `require('mdlog/override')`
 
-`console.log` overrides `mdlog`. __This module pollutes global `console` object.__
+`console.log` overrides `mdlog`. __This module pollutes global `console` object._ And, you can use original `console.log` as `console._log`.
 
 
 ### License
