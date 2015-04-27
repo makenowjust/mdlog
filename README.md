@@ -3,6 +3,7 @@
 Markdown on `console.log`
 
 [![npm](https://nodei.co/npm/mdlog.png)](https://nodei.co/npm/mdlog/)
+[![Dependency Status](https://david-dm.org/MakeNowJust/mdlog.png)](https://david-dm.org/MakeNowJust/mdlog)
 
 
 ## What Is?
