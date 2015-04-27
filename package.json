@@ -22,7 +22,8 @@
     "convert.js",
     "config.js",
     "default_config.json",
-    "override.js"
+    "override.js",
+    "src"
   ],
   "dependencies": {
     "lodash": "^3.7.0",
