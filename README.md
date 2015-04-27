@@ -80,7 +80,7 @@ $ env MDLOG_CONFIG='heading_color:32' node sample/readme.js
 
 - - -
 
-#### `require('mdlog/override')`
+#### `mdlog = require('mdlog/override')`
 
 `console.log` overrides `mdlog`. __This module pollutes global `console` object._ And, you can use original `console.log` as `console._log`.
 
