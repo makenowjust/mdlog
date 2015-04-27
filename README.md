@@ -51,12 +51,6 @@ It calls `convert` with this first argument `markdown` and second argument `conf
 
 - - -
 
-#### `mdlog.write`
-
-`mdlog.write` is similar `mdlog`, but call `process.stdout.write` for outputing.
-
-- - -
-
 #### `convert = require('mdlog/convert')`
 
 `convert` is converter from Markdown to terminal output.
