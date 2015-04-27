@@ -18,13 +18,3 @@ module.exports = function mdlog(markdown, config) {
 
   log(string);
 };
-
-module.exports.write = function write(markdown, config) {
-  if (typeof config !== 'undefined') config = _.merge({}, defaultConfig, config);
-  else config = defaultConfig;
-
-  var
-  string = convert(markdown, config);
-
-  process.stdout.write(string);
-};
