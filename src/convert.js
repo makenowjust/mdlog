@@ -17,8 +17,13 @@ function Converter(config) {
   
   // default value of status is `undefined`.
   this.status = {};
+  this.status.bold = this.status.italic =
+    this.status.underline = this.status.delete =
+    this.status.color = this.status.background = undefined;
+  this.status.style = '';
 
   // parameter is passing to browser's `console.log`.
+  this.paramIndex = 0;
   this.parameter = [];
 }
 
@@ -44,11 +49,14 @@ Converter.prototype.stringify = function stringify(node) {
 // wrap output string with styles specialized for list node
 Converter.prototype.wrapList = function wrapList(node) {
   var
-  _status = copyStatus(this.status),
+  _status = this.status,
   config = nodeConfig(this.config, node.type),
-  string, esc;
+  string, esc, paramIndex = this.paramIndex;
 
+  this.status = copyStatus(this.status);
   updateStatus(this.status, config);
+
+  this.paramIndex += 1;
 
   // list must contain listItem.
   node.children = node.children.map(function loopChildren(node) {
@@ -63,8 +71,8 @@ Converter.prototype.wrapList = function wrapList(node) {
     };
   }.bind(this));
 
-  esc = escCode(this.status, false, this.config);
-  string = esc + mdast.stringify(node, mdastConfig(this.config)) + escCode(_status, !!esc, this.config);
+  esc = escCode(this.status, false, this.config, this.parameter, paramIndex);
+  string = esc + mdast.stringify(node, mdastConfig(this.config)) + escCode(_status, !!esc, this.config, this.parameter, this.paramIndex++);
 
   this.status = _status;
 
@@ -74,11 +82,14 @@ Converter.prototype.wrapList = function wrapList(node) {
 // wrap output string with styles
 Converter.prototype.wrap = function wrap(node) {
   var
-  _status = copyStatus(this.status),
+  _status = this.status,
   config = nodeConfig(this.config, node.type),
-  string, esc, sep = config.block ? '\n\n' : '';
+  string, esc, sep = config.block ? '\n\n' : '', paramIndex = this.paramIndex;
 
+  this.status = copyStatus(this.status);
   updateStatus(this.status, config);
+
+  this.paramIndex += 1;
 
   if (node.children) {
     string = node.children.map(function loopChildren(node) {
@@ -98,8 +109,8 @@ Converter.prototype.wrap = function wrap(node) {
     string = mdast.stringify(node, mdastConfig(this.config));
   }
 
-  esc = escCode(this.status, false, this.config);
-  string = esc + string + escCode(_status, !!esc, this.config);
+  esc = escCode(this.status, false, this.config, this.parameter, paramIndex);
+  string = esc + string + escCode(_status, !!esc, this.config, this.parameter, this.paramIndex++);
 
   this.status = _status;
 
@@ -126,6 +137,7 @@ function nodeConfig(config, type) {
   nodeConfig.delete = bool(config[type + '_delete']);
   nodeConfig.color = config[type + '_color'];
   nodeConfig.background = config[type + '_background'];
+  nodeConfig.style = config[type + '_style'];
 
   return config[type] = nodeConfig;
 }
@@ -152,6 +164,8 @@ function updateStatus(status, config) {
   status.delete = typeof config.delete === 'undefined' ? status.delete : config.delete;
   status.color = config.color || status.color;
   status.background = config.background || status.background;
+  status.style = status.style || '';
+  if (typeof config.style !== 'undefined') status.style += ';' + config.style;
 }
 
 function copyStatus(status) {
@@ -162,11 +176,12 @@ function copyStatus(status) {
     delete: status.delete,
     color: status.color,
     background: status.background,
+    style: status.style,
   };
 }
 
 // get escape sequence from `status`
-function escCode(status, reset, config) {
+function escCode(status, reset, config, parameter, paramIndex) {
   var
   flags = [];
 
@@ -175,7 +190,7 @@ function escCode(status, reset, config) {
       status.bold === false ||
       status.italic === false ||
       status.underline === false ||
-      status.delete === false) flags.push('0');
+      status.delete === false) flags.push(prop('reset'));
 
   // set styles
   if (status.bold) flags.push(prop('bold'));
@@ -184,8 +199,16 @@ function escCode(status, reset, config) {
   if (status.delete) flags.push(prop('delete'));
   if (status.color) flags.push(prop('color', status.color, config));
   if (status.background) flags.push(prop('background', status.background, config));
+  if (status.style) flags.push(prop('style', status.style, config));
 
-  return flags.length === 0 ? '' : '\u001b[' + flags.filter(Boolean).join(';') + 'm';
+  flags = flags.filter(Boolean);
+
+  if (config.browser) {
+    parameter[paramIndex] = flags.join(';');
+    return '%c';
+  } else {
+    return flags.length === 0 ? '' : '\u001b[' + flags.filter(Boolean).join(';') + 'm';
+  }
 }
 
 // convert string to bool
@@ -201,5 +224,5 @@ module.exports = function convert(markdown, config) {
   var
   converter = new Converter(config);
 
-  return converter.convert(markdown);
+  return [converter.convert(markdown)].concat(converter.parameter);
 };
