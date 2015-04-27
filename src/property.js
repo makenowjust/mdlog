@@ -15,6 +15,8 @@ module.exports = function prop(name, value, config) {
   i = 30, c;
 
   switch (name) {
+  case 'reset':
+    return '0';
   case 'bold':
     return '1';
   case 'italic':
