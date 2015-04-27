@@ -50,6 +50,12 @@ First it pass its arguments to `util.format`, then call `convert` with this resu
 
 - - -
 
+#### `mdlog.write`
+
+`mdlog.write` is similar `mdlog`, but call `process.stdout.write` for outputing.
+
+- - -
+
 #### `convert = require('mdlog/convert')`
 
 `convert` is converter from Markdown to terminal output.
