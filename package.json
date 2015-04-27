@@ -21,7 +21,6 @@
     "index.js",
     "convert.js",
     "config.js",
-    "default_config.json",
     "override.js",
     "src"
   ],
