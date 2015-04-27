@@ -13,9 +13,9 @@
   "blockquote_block": true,
   "blockquote_italic": true,
 
-  "heading_color": "31",
+  "heading_color": "red",
 
-  "code_color": "33",
+  "code_color": "yellow",
 
   "inlineCode_underline": true,
 
@@ -34,10 +34,10 @@
   "delete_delete": true,
 
   "link_underline": true,
-  "link_color": "35",
+  "link_color": "magenta",
 
   "image_underline": true,
-  "image_color": "34",
+  "image_color": "cyan",
 
   "escape_stringify": false
 }
