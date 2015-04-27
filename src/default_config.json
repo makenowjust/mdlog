@@ -14,10 +14,12 @@
   "blockquote_italic": true,
 
   "heading_color": "red",
+  "heading_style": "font-size: 1.42em",
 
   "code_color": "yellow",
 
   "inlineCode_underline": true,
+  "inlineCode_style": "border: 1px solid #ccc; border-radius: 3px; padding: 1px; background: #f5f5f5;",
 
   "list_bold": true,
 
@@ -25,7 +27,7 @@
   "listItem_bold": false,
 
   "emphasis_stringify": false,
-  "emphasis_underline": true,
+  "emphasis_italic": true,
 
   "strong_stringify": false,
   "strong_bold": true,
