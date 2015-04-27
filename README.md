@@ -28,9 +28,13 @@ console.log([
 ].join('\n'));
 ```
 
-then output is:
+then terminal output is:
 
-![output to terminal](https://raw.githubusercontent.com/MakeNowJust/mdlog/master/sample/readme.png)
+![output to terminal](https://raw.githubusercontent.com/MakeNowJust/mdlog/master/sample/readme-node.png)
+
+and browser output is:
+
+![output to browser console](https://raw.githubusercontent.com/MakeNowJust/mdlog/master/sample/readme-browser.png)
 
 
 ## Install
