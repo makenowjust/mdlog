@@ -25,9 +25,22 @@
     "override.js",
     "src"
   ],
+  "browser": {
+    "./src/property.js": "./src/browser/property.js",
+    "./src/config.js": "./src/browser/config.js"
+  },
+  "scripts": {
+    "sample:node": "node sample/readme.js",
+    "sample:browser": "webpack-dev-server --content-base ./sample --config ./sample/webpack.config.js"
+  },
   "dependencies": {
     "color-string": "^0.3.0",
     "lodash": "^3.7.0",
     "mdast": "^0.19.0"
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.1",
+    "webpack": "^1.8.10",
+    "webpack-dev-server": "^1.8.2"
   }
 }
