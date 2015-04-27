@@ -1,3 +1,7 @@
+// loading node.js package
+var
+_ = require('lodash');
+
 // loading default configuration
 var
 defaultConfig = require('./default_config');
@@ -17,4 +21,4 @@ function lcsv(string, def) {
   }, def);
 }
 
-module.exports = lcsv(process.env.MDLOG_CONFIG || '', defaultConfig);
+module.exports = lcsv(process.env.MDLOG_CONFIG || '', _.clone(defaultConfig));

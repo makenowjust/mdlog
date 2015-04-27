@@ -2,6 +2,7 @@
 
 // loading package
 var
+_     = require('lodash'),
 mdast = require('mdast');
 
 // ## class Converter
@@ -10,7 +11,7 @@ mdast = require('mdast');
 function Converter(config) {
   if (!(this instanceof Converter)) return new Converter(config);
 
-  this.config = config;
+  this.config = _.clone(config);
   this.status = {};
 }
 

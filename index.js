@@ -1,23 +1,30 @@
 var
+_    = require('lodash'),
 util = require('util');
 
 var
-convert = require('./convert'),
-config  = require('./config');
+convert       = require('./convert'),
+defaultConfig = require('./config');
 
 var
-log = console.log;
+log = console._log || console.log;
 
-module.exports = function mdlog(markdown/*, ...args*/) {
+module.exports = function mdlog(markdown, config) {
+  if (typeof config !== 'undefined') config = _.merge({}, defaultConfig, config);
+  else config = defaultConfig;
+
   var
-  string = convert(util.format.apply(null, arguments), config);
+  string = convert(markdown, config);
 
   log(string);
 };
 
-module.exports.write = function write(markdown/*, ...args*/) {
+module.exports.write = function write(markdown, config) {
+  if (typeof config !== 'undefined') config = _.merge({}, defaultConfig, config);
+  else config = defaultConfig;
+
   var
-  string = convert(util.format.apply(null, arguments), config);
+  string = convert(markdown, config);
 
   process.stdout.write(string);
 };
