@@ -1,0 +1,43 @@
+{
+  "mdast_yaml": false,
+  "mdast_breaks": true,
+
+  "mdast_rule": "-",
+  "mdast_ruleRepetition": 10,
+
+  "stringify": true,
+
+  "root_stringify": false,
+  "root_block": true,
+
+  "blockquote_block": true,
+  "blockquote_italic": true,
+
+  "heading_color": "31",
+
+  "code_color": "33",
+
+  "inlineCode_underline": true,
+
+  "list_bold": true,
+
+  "listItem_block": true,
+  "listItem_bold": false,
+
+  "emphasis_stringify": false,
+  "emphasis_underline": true,
+
+  "strong_stringify": false,
+  "strong_bold": true,
+
+  "delete_stringify": false,
+  "delete_delete": true,
+
+  "link_underline": true,
+  "link_color": "35",
+
+  "image_underline": true,
+  "image_color": "34",
+
+  "escape_stringify": false
+}
