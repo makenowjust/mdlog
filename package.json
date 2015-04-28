@@ -1,6 +1,6 @@
 {
   "name": "mdlog",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Markdown on `console.log`",
   "author": "TSUYUSATO Kitsune <make.just.on@gmail.com>",
   "keywords": [
