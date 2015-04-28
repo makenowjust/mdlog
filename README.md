@@ -47,41 +47,57 @@ $ npm install --save mdlog
 
 ## API
 
-#### `mdlog = require('mdlog')`
+```javascript
+mdlog = require('mdlog')
+```
 
-`mdlog` is the implementation of `mdlog/override`'s `console.log`. You can use it without `console.log` pollution.
+#### `mdlog(markdown, config = mdlog.config)`
 
-It calls `convert` with this first argument `markdown` and second argument `config` merged `defaultConfig` and prints.
+`mdlog` is converting `markdown` text to output, and print it with `console.log`.  It can override `mdlog.config` by `config` (`mdlog.config` is immutable).
 
-- - -
-
-#### `convert = require('mdlog/convert')`
-
-`convert` is converter from Markdown to terminal output.
-
-It follows two arguments.  First argument is `markdown`. It is Markdown text.  Second argument is `config`.  This config is JavaScript object having such key/values:
-
-  - `config.mdast_<mdast_option_name>` is passed to `mdast`'s API.
-  - `config.stringify` is a default parameter of `config.<node_type>_stringify`.
-  - `config.<node_type>_stringify` is whether using `mdast.stringify`.
-  - `config.<node_type>_bold`, `config.<node_type>_italic`, `config.<node_type>_underline`, `config.<node_type>_delete` and `config.<node_type>_color` is decoration config.
-  - `config.<node_type>_block` is whether `<node_type>` is block.
-
-- - -
-
-#### `config = require('mdlog/config')`
-
-It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG`.
-
-```console
-$ env MDLOG_CONFIG='heading_color:32' node sample/readme.js
+```javascript
+mdlog('# Hello *mdlog* World!');
 ```
 
 - - -
 
+#### `mdlog.convert(markdown, config)`
+
+`convert` is converter from `markdown` text to output which is `Array` because it is `console.log`'s arguments.
+
+Second argument is `config`.  This config is JavaScript object having such key/values:
+
+  - `mdast_<mdast_option_name>` is passed to `mdast`'s API.
+  - `stringify` is a default parameter of `config.<node_type>_stringify`.
+  - `<node_type>_stringify` is flag for using `mdast.stringify`.
+  - `<node_type>_{bold,italic,underline,delete,color,background,style}` is decoration style config.
+  - `<node_type>_block` is flag whether `<node_type>` is block.
+
+Default config is [here](blob/master/src/default_config.json), please see.
+
+```javascript
+var
+args = mdlog.convert('# Hello *mdlog* World!');
+
+console.log.apply(console, args);
+```
+
+- - -
+
+#### `mdlog.config`
+
+It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG` (node.js only).
+
+```console
+$ env MDLOG_CONFIG='heading_color:darkviolet' node sample/readme.js
+```
+
+- - -
+
+
 #### `mdlog = require('mdlog/override')`
 
-`console.log` overrides `mdlog`. __This module pollutes global `console` object._ And, you can use original `console.log` as `console._log`.
+`console.log` overrides `mdlog`. __This module pollutes global `console` object.__ And, you can use original `console.log` as `console._log`.  In addition to, this module returns `mdlog` module.
 
 
 ### License
