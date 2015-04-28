@@ -24,10 +24,7 @@
     "override.js",
     "src"
   ],
-  "browser": {
-    "./src/property.js": "./src/browser/property.js",
-    "./src/config.js": "./src/browser/config.js"
-  },
+  "browser": "./src/browser/index.js",
   "scripts": {
     "sample:node": "node sample/readme.js",
     "sample:browser": "webpack-dev-server --content-base ./sample --config ./sample/webpack.config.js"
