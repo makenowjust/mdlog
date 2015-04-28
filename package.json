@@ -19,8 +19,6 @@
   "files": [
     "README.md",
     "index.js",
-    "convert.js",
-    "config.js",
     "override.js",
     "src"
   ],
