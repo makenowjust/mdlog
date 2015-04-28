@@ -7,7 +7,4 @@ module.exports = {
       { test: /\.json$/, loader: 'json' },
     ],
   },
-  resolve: {
-    packageAlias: "browser",
-  },
 };
