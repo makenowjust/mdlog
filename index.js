@@ -1,22 +1,14 @@
 'use strict';
 
 var
-_    = require('lodash'),
-util = require('util');
+prop    = require('./src/property'),
+convert = require('./src/convert')(prop),
+config  = require('./src/config');
 
 var
-convert       = require('./convert'),
-defaultConfig = require('./config');
+mdlog = require('./src/mdlog')(convert, config);
 
-var
-log = console._log || console.log;
+mdlog.convert = convert;
+mdlog.config  = config;
 
-module.exports = function mdlog(markdown, config) {
-  if (typeof config !== 'undefined') config = _.merge({}, defaultConfig, config);
-  else config = defaultConfig;
-
-  var
-  string = convert(markdown, config);
-
-  log.apply(console, string);
-};
+module.exports = mdlog;
