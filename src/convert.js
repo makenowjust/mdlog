@@ -3,8 +3,11 @@
 // loading package
 var
 _     = require('lodash'),
-mdast = require('mdast'),
-prop  = require('./property');
+mdast = require('mdast');
+
+// injection parameter
+var
+prop;
 
 // ## class Converter
 //
@@ -220,9 +223,13 @@ function bool(value) {
 }
 
 // export convert function
-module.exports = function convert(markdown, config) {
-  var
-  converter = new Converter(config);
+module.exports = function convertMaker(_prop) {
+  prop = _prop;
 
-  return [converter.convert(markdown)].concat(converter.parameter);
+  return function convert(markdown, config) {
+    var
+    converter = new Converter(config);
+
+    return [converter.convert(markdown)].concat(converter.parameter);
+  };
 };
