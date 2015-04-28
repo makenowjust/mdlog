@@ -2,7 +2,7 @@
 
 var
 util  = require('util'),
-mdlog = require('./index.js');
+mdlog = require('./.');
 
 console._log = console.log;
 
