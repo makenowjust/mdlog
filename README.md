@@ -56,7 +56,7 @@ mdlog = require('mdlog')
 `mdlog` is converting `markdown` text to output, and print it with `console.log`.  It can override `mdlog.config` by `config` (`mdlog.config` is immutable).
 
 ```javascript
-mdlog('# Hello *mdlog* World!');
+mdlog('# Hello *mdlog* World!', { heading_color: 'darkviolet' });
 ```
 
 - - -
@@ -73,11 +73,11 @@ Second argument is `config`.  This config is JavaScript object having such key/v
   - `<node_type>_{bold,italic,underline,delete,color,background,style}` is decoration style config.
   - `<node_type>_block` is flag whether `<node_type>` is block.
 
-Default config is [here](blob/master/src/default_config.json), please see.
+Default config is [here](https://github.com/MakeNowJust/mdlog/blob/master/src/default_config.json), please see.
 
 ```javascript
 var
-args = mdlog.convert('# Hello *mdlog* World!');
+args = mdlog.convert('# Hello *mdlog* World!', mdlog.config);
 
 console.log.apply(console, args);
 ```
@@ -86,7 +86,7 @@ console.log.apply(console, args);
 
 #### `mdlog.config`
 
-It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG` (node.js only).
+It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG` (Of course, node.js only).
 
 ```console
 $ env MDLOG_CONFIG='heading_color:darkviolet' node sample/readme.js
