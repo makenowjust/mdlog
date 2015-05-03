@@ -26,7 +26,6 @@ function Converter(config) {
   this.status.style = '';
 
   // parameter is passing to browser's `console.log`.
-  this.paramIndex = 0;
   this.parameter = [];
 }
 
@@ -54,12 +53,12 @@ Converter.prototype.wrapList = function wrapList(node) {
   var
   _status = this.status,
   config = nodeConfig(this.config, node.type),
-  string, esc, paramIndex = this.paramIndex;
+  string, esc;
 
   this.status = copyStatus(this.status);
   updateStatus(this.status, config);
 
-  this.paramIndex += 1;
+  esc = this.escCode(false);
 
   // list must contain listItem.
   node.children = node.children.map(function loopChildren(node) {
@@ -74,10 +73,9 @@ Converter.prototype.wrapList = function wrapList(node) {
     };
   }.bind(this));
 
-  esc = escCode(this.status, false, this.config, this.parameter, paramIndex);
-  string = esc + mdast.stringify(node, mdastConfig(this.config)) + escCode(_status, !!esc, this.config, this.parameter, this.paramIndex++);
 
   this.status = _status;
+  string = esc + mdast.stringify(node, mdastConfig(this.config)) + this.escCode(!!esc);
 
   return string;
 };
@@ -87,12 +85,12 @@ Converter.prototype.wrap = function wrap(node) {
   var
   _status = this.status,
   config = nodeConfig(this.config, node.type),
-  string, esc, sep = config.block ? '\n\n' : '', paramIndex = this.paramIndex;
+  string, esc, sep = config.block ? '\n\n' : '';
 
   this.status = copyStatus(this.status);
   updateStatus(this.status, config);
 
-  this.paramIndex += 1;
+  esc = this.escCode(false);
 
   if (node.children) {
     string = node.children.map(function loopChildren(node) {
@@ -112,14 +110,44 @@ Converter.prototype.wrap = function wrap(node) {
     string = mdast.stringify(node, mdastConfig(this.config));
   }
 
-  esc = escCode(this.status, false, this.config, this.parameter, paramIndex);
-  string = esc + string + escCode(_status, !!esc, this.config, this.parameter, this.paramIndex++);
-
   this.status = _status;
+  string = esc + string + this.escCode(!!esc);
+
 
   return string;
 };
 
+// get escape sequence from `status`
+Converter.prototype.escCode = function escCode(reset) {
+  var
+  status = this.status,
+  flags = [];
+
+  // reset escape sequence when `reset` is `true` or style status is explicit `false`.
+  if (reset ||
+      status.bold === false ||
+      status.italic === false ||
+      status.underline === false ||
+      status.delete === false) flags.push(prop('reset'));
+
+  // set styles
+  if (status.bold) flags.push(prop('bold'));
+  if (status.italic) flags.push(prop('italic'));
+  if (status.underline) flags.push(prop('underline'));
+  if (status.delete) flags.push(prop('delete'));
+  if (status.color) flags.push(prop('color', status.color, this.config));
+  if (status.background) flags.push(prop('background', status.background, this.config));
+  if (status.style) flags.push(prop('style', status.style, this.config));
+
+  flags = flags.filter(Boolean);
+
+  if (this.config.browser) {
+    this.parameter.push(flags.join(';'));
+    return '%c';
+  } else {
+    return flags.length === 0 ? '' : '\u001b[' + flags.join(';') + 'm';
+  }
+}
 
 // ## internal functions
 
@@ -181,37 +209,6 @@ function copyStatus(status) {
     background: status.background,
     style: status.style,
   };
-}
-
-// get escape sequence from `status`
-function escCode(status, reset, config, parameter, paramIndex) {
-  var
-  flags = [];
-
-  // reset escape sequence when `reset` is `true` or style status is explicit `false`.
-  if (reset ||
-      status.bold === false ||
-      status.italic === false ||
-      status.underline === false ||
-      status.delete === false) flags.push(prop('reset'));
-
-  // set styles
-  if (status.bold) flags.push(prop('bold'));
-  if (status.italic) flags.push(prop('italic'));
-  if (status.underline) flags.push(prop('underline'));
-  if (status.delete) flags.push(prop('delete'));
-  if (status.color) flags.push(prop('color', status.color, config));
-  if (status.background) flags.push(prop('background', status.background, config));
-  if (status.style) flags.push(prop('style', status.style, config));
-
-  flags = flags.filter(Boolean);
-
-  if (config.browser) {
-    parameter[paramIndex] = flags.join(';');
-    return '%c';
-  } else {
-    return flags.length === 0 ? '' : '\u001b[' + flags.filter(Boolean).join(';') + 'm';
-  }
 }
 
 // convert string to bool
