@@ -1,6 +1,8 @@
+// loading packages
 var
 color = require('color-string');
 
+// convert from RGB to terminal 256 color
 function color256(c) {
   var
   r = ~~(c[0] * 6 / 256),
@@ -10,6 +12,7 @@ function color256(c) {
   return r * 36 + g * 6 + b + 16;
 }
 
+// `prop` returns terminal escape sequence from `name`, `value` and `config`
 module.exports = function prop(name, value, config) {
   var
   i = 30, c;
@@ -25,6 +28,8 @@ module.exports = function prop(name, value, config) {
     return '4';
   case 'delete':
     return '9';
+
+  // implicit fallthrough
   case 'background':
     i += 10;
   case 'color':

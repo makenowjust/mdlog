@@ -1,3 +1,4 @@
+// export `mdlog` maker function
 module.exports = function mdlogMaker(convert, defaultConfig) {
   'use strict';
 

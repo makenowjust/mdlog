@@ -1,5 +1,6 @@
 'use strict';
 
+// `prop` returns css style from `name`, `value` and `config`
 module.exports = function prop(name, value, config) {
   switch (name) {
   case 'bold':

@@ -21,4 +21,6 @@ function lcsv(string, def) {
   }, def);
 }
 
+// override `config` by environment variable `MDLOG_CONFIG`
+// and export this `config`
 module.exports = lcsv(process.env.MDLOG_CONFIG || '', _.clone(defaultConfig));

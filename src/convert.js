@@ -222,7 +222,7 @@ function bool(value) {
   return /^(?:t(?:rue)?|y(?:es)|on?)$/i.test(value);
 }
 
-// export convert function
+// export `convert` maker function
 module.exports = function convertMaker(_prop) {
   prop = _prop;
 
