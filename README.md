@@ -2,7 +2,7 @@
 
 Markdown on `console.log`
 
-[![npm](https://nodei.co/npm/mdlog.png)](https://nodei.co/npm/mdlog/)
+[![npm](https://img.shields.io/npm/v/mdlog.svg)](https://www.npmjs.com/package/mdlog)
 [![Dependency Status](https://david-dm.org/MakeNowJust/mdlog.png)](https://david-dm.org/MakeNowJust/mdlog)
 
 
