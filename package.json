@@ -21,12 +21,17 @@
   "files": [
     "README.md",
     "index.js",
+    "browser.js",
     "override.js",
-    "src"
+    "es5",
+    "es6",
+    "config",
+    "color"
   ],
-  "browser": "./src/browser/index.js",
+  "browser": "./browser.js",
   "scripts": {
-    "build": "babel --out-dir ./es5 ./es6",
+    "build": "babel    --source-maps inline --out-dir ./es5 ./es6",
+    "watch": "babel -w --source-maps inline --out-dir ./es5 ./es6",
     "sample:node": "node sample/readme.js",
     "sample:browser": "webpack-dev-server --content-base ./sample --config ./sample/webpack.config.js"
   },
