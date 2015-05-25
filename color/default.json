@@ -1,0 +1,15 @@
+{
+  "code": {
+    "color": "#3a3a3a"
+  },
+  "inlineCode": {
+    "color": "#3a3a3a",
+    "background": "#fcfcfc"
+  },
+  "link": {
+    "color": "magenta"
+  },
+  "image": {
+    "color": "cyan"
+  }
+}
