@@ -1,0 +1,21 @@
+{
+  "root": {
+    "stringify": false,
+    "separator": "\n\n"
+  },
+  "blockquote": {
+    "separator": "\n\n"
+  },
+  "emphasis": {
+    "stringify": false
+  },
+  "strong": {
+    "stringify": false
+  },
+  "delete": {
+    "stringify": false
+  },
+  "escape": {
+    "stringify": false
+  }
+}

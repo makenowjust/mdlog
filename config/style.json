@@ -1,0 +1,32 @@
+{
+  "heading": {
+    "bold": true
+  },
+  "blockquote": {
+    "italic": true
+  },
+  "inlineCode": {
+    "box": true
+  },
+  "list": {
+    "bold": true
+  },
+  "listItem": {
+    "bold": false
+  },
+  "emphasis": {
+    "italic": true
+  },
+  "strong": {
+    "bold": true
+  },
+  "delete": {
+    "strike": true
+  },
+  "link": {
+    "underline": true
+  },
+  "image": {
+    "underline": true
+  }
+}
