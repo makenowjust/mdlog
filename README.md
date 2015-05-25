@@ -48,56 +48,24 @@ $ npm install --save mdlog
 ## API
 
 ```javascript
-mdlog = require('mdlog')
+mdlogBuilder = require('mdlog');
 ```
 
-#### `mdlog(markdown, config = mdlog.config)`
-
-`mdlog` is converting `markdown` text to output, and print it with `console.log`.  It can override `mdlog.config` by `config` (`mdlog.config` is immutable).
-
-```javascript
-mdlog('# Hello *mdlog* World!', { heading_color: 'darkviolet' });
-```
+#### `mdlog = mdlogBuilder(colorScheme = require('mdlog/color/default'))`
 
 - - -
 
-#### `mdlog.convert(markdown, config)`
-
-`convert` is converter from `markdown` text to output which is `Array` because it is `console.log`'s arguments.
-
-Second argument is `config`.  This config is JavaScript object having such key/values:
-
-  - `mdast_<mdast_option_name>` is passed to `mdast`'s API.
-  - `stringify` is a default parameter of `config.<node_type>_stringify`.
-  - `<node_type>_stringify` is flag for using `mdast.stringify`.
-  - `<node_type>_{bold,italic,underline,delete,color,background,style}` is decoration style config.
-  - `<node_type>_block` is flag whether `<node_type>` is block.
-
-Default config is [here](https://github.com/MakeNowJust/mdlog/blob/master/src/default_config.json), please see.
-
-```javascript
-var
-args = mdlog.convert('# Hello *mdlog* World!', mdlog.config);
-
-console.log.apply(console, args);
-```
+#### `mdlog(markdown)`
 
 - - -
 
-#### `mdlog.config`
-
-It is default `config`.  It is custamizable by environemt variable `MDLOG_CONFIG` (Of course, node.js only).
-
-```console
-$ env MDLOG_CONFIG='heading_color:darkviolet' node sample/readme.js
-```
+#### `mdlogBuilder.convert(markdown, colorScheme = require('mdlog/color/default'))`
 
 - - -
 
+#### `require('mdlog/override')`
 
-#### `mdlog = require('mdlog/override')`
-
-`console.log` overrides `mdlog`. __This module pollutes global `console` object.__ And, you can use original `console.log` as `console._log`.  In addition to, this module returns `mdlog` module.
+`console.log` overrides `mdlog`. __This module pollutes global `console` object.__ You can use original `console.log` as `console._log`.
 
 
 ### License
