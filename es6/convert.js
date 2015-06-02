@@ -50,7 +50,7 @@ export default class Convert {
 
   // `convert_text` converts Markdown's text node into text for `console.log`.
   convert_text(node) {
-    return node.value;
+    return escapeText(node.value);
   }
 
   // `convert_list` converts Markdown's list node into text for `console.log`.
