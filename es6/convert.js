@@ -2,23 +2,45 @@
 
 import mdast from 'mdast';
 
-// escape text for `console.log`'s formatter.
+// `escapeText` escapes specified text for `console.log`'s formatter.
 function escapeText(text) {
   return text.replace(/%/g, '%%');
 }
 
+// `Convert` is internal class to convert Markdown into text styled for `console.log`'.
 export default class Convert {
+
+  // `constructor` is `Convert` constructor (calling implicitly via `new`).
+  // 
+  // each of arguments description is:
+  //
+  //   - `rule` is `Object` as dictionary
+  //     to specify translation rules for each Markdown's nodes.
+  //   - `style` is `Object` as dictionary
+  //     to specify styles (without color) for each Markdown's nodes.
+  //   - `color` is `Object` as dictionary
+  //     to specify color styles for each Markdown's nodes.
+  //   - `mdast` is `Object` as dictionary
+  //     to pass `mdast.stringify`.
   constructor(rule, style, mdast, color) {
+    // save arguments into instance.
     this.rule = rule;
     this.style = style;
     this.mdast = mdast;
     this.color = color;
 
+    // set instance variables.
     this.styleStack = [{}];
     this.args = [];
   }
 
+  // `convert` is converting entry point.
+  //
+  //  A argument `node` is Markdown's node.
+  //
+  //  It returns text styled for `console.log`.
   convert(node) {
+    // separate process by `node.type`.
     if ('convert_' + node.type in this) {
       return this['convert_' + node.type](node);
     } else {
@@ -26,10 +48,15 @@ export default class Convert {
     }
   }
 
+  // `convert_text` converts Markdown's text node into text for `console.log`.
   convert_text(node) {
     return node.value;
   }
 
+  // `convert_list` converts Markdown's list node into text for `console.log`.
+  //
+  // Why this method is needed is Markdown's list nodes are difference in `Object` structure
+  // (Markdown's list nodes __most__ contain listItem nodes as `node.children`.)
   convert_list(node) {
     let
     prefix, text;
@@ -51,6 +78,7 @@ export default class Convert {
     return text;
   }
 
+  // `convertDefault` converts Markdown's node into text for `console.log`.
   convertDefault(node) {
     let
     prefix, text,
@@ -59,7 +87,9 @@ export default class Convert {
     prefix = this.styleTextPrefix(node);
 
     if (node.children) {
-      text = node.children.map((child) => this.convert(child)).join(rule.separator || '');
+      text = node.children
+        .map((child) => this.convert(child))
+        .join(rule.separator || '');
     } else {
       text = escapeText(node.value || '');
     }
@@ -81,6 +111,7 @@ export default class Convert {
     return text;
   }
 
+  // `nodeRule` gets a rule specified `type`.
   nodeRule(type) {
     let
     rule = this.rule[type] || {};
@@ -92,14 +123,17 @@ export default class Convert {
     return rule;
   }
 
+  // `nodeStyle` gets a rule specified `type`.
   nodeStyle(type) {
     return this.style[type] || {};
   }
 
+  // `nodeColor` gets a rule specified `type`.
   nodeColor(type) {
     return this.color[type] || {};
   }
 
+  // `styleTextPrefix` makes styled text and update internal status.
   styleTextPrefix(node) {
     let
     newStyle = this.updateStyle(node.type), result;
@@ -109,6 +143,7 @@ export default class Convert {
     return this.buildStyleText(newStyle);
   }
 
+  // `styleTextPostfix` makes styled text and update internal status.
   styleTextPostfix(node) {
     this.styleStack.pop();
 
@@ -118,6 +153,7 @@ export default class Convert {
     return this.buildStyleText(oldStyle);
   }
 
+  // `updateStyle` is implementation updating internal status.
   updateStyle(type) {
     let
     nodeStyle = this.nodeStyle(type),
@@ -144,11 +180,11 @@ export default class Convert {
   }
 
 
-  // abstruct methods
-
-  // style from text
+  // `buildStyleText` is implementation making styled text (abstruct method).
   buildStyleText(style) {
-    throw new Error('Convert.prototype.buildStyleText is abstruct method. Please implement in subclasses.');
+    throw new Error(
+      'Convert.prototype.buildStyleText is abstruct method. ' +
+      'Please implement in subclasses.');
   }
 }
 
