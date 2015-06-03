@@ -180,7 +180,6 @@ export default class Convert {
     return newStyle;
   }
 
-
   // `buildStyleText` is implementation making styled text (abstruct method).
   buildStyleText(style) {
     throw new Error(
