@@ -188,4 +188,3 @@ export default class Convert {
       'Please implement in subclasses.');
   }
 }
-
