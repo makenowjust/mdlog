@@ -1,5 +1,6 @@
 'use strict';
 
+// import for `mdast.stringify`.
 import mdast from 'mdast';
 
 // `escapeText` escapes specified text for `console.log`'s formatter.
