@@ -37,7 +37,7 @@ export default class Convert {
 
   // `convert` is converting entry point.
   //
-  //  A argument `node` is Markdown's node.
+  //  An argument `node` is Markdown's node.
   //
   //  It returns text styled for `console.log`.
   convert(node) {
