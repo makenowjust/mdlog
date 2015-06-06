@@ -52,6 +52,7 @@ export default class NodeConvert extends Convert {
       if (index = BASIC_COLOR.indexOf(value), index !== -1) {
         props.push(num + index);
       } else if (c = color.getRgb(value)) {
+        // if `rule.consoleRgb` is true, it uses RGB color.
         props.push((num + 8) + ';' + (this.rule.consoleRgb ? '2;' + c.join(';') : '5;' + color256(c)));
       } else if (typeof value !== 'undefined') {
         props.push(value);
