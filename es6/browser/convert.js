@@ -1,18 +1,25 @@
 'use strict';
 
+// import superclass.
 import Convert from '../convert';
 
 const
+// `PROPS` is the CSS of styles properties.
 PROPS = {
   bold: 'font-weight: bold',
   italic: 'font-style: italic',
   box: 'border: 1px solid #ccc; border-radius: 3px; padding: 1px'
 };
 
+// `BrowserConvert` is internal class and
+// subclass of `Convert` specialized for browser JavaScript.
 export default class BrowserConvert extends Convert {
+
+  // `buildStyleText` is implementation to build styled text.
   buildStyleText(style) {
     let
     css = [],
+    // `deco` is css's `text-decoration` values.
     deco = [];
 
     Object.keys(PROPS).forEach((prop) => {
@@ -45,6 +52,7 @@ export default class BrowserConvert extends Convert {
     return '%c';
   }
 
+  // `convert_inlineCode` converts Markdown's inlineCode node into text for `console.log`.
   convert_inlineCode(node) {
     let
     text;
@@ -56,6 +64,7 @@ export default class BrowserConvert extends Convert {
     return text;
   }
 
+  // `styleTextPrefix` overrides for changing font size of Markdown's heading node.
   styleTextPrefix(node) {
     let
     newStyle = this.updateStyle(node.type), result;
@@ -70,4 +79,5 @@ export default class BrowserConvert extends Convert {
     
     return this.buildStyleText(newStyle);
   }
+
 }
