@@ -1,10 +1,13 @@
 'use strict';
 
+// import for `color.getRgb`.
 import color from 'color-string';
 
+// import superclass.
 import Convert from '../convert';
 
 
+// `color256` converts RGB color into terminal 256 color.
 function color256(c) {
   let
   r = ~~(c[0] * 6 / 256),
@@ -15,6 +18,7 @@ function color256(c) {
 }
 
 const
+// `PROPS` is terminal escape sequence of styles properties.
 PROPS = {
   bold: '1',
   italic: '3',
@@ -24,7 +28,11 @@ PROPS = {
 },
 BASIC_COLOR = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'];
 
+// `BrowserConvert` is internal class and
+// subclass of `Convert` specialized for node.js.
 export default class NodeConvert extends Convert {
+
+  // `buildStyleText` is implementation to build styled text.
   buildStyleText(style) {
     let
     props = ['0'];
@@ -52,4 +60,5 @@ export default class NodeConvert extends Convert {
 
     return '\u001b[' + props.join(';') + 'm';
   }
+
 }

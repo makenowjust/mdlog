@@ -186,4 +186,5 @@ export default class Convert {
       'Convert.prototype.buildStyleText is abstruct method. ' +
       'Please implement in subclasses.');
   }
+
 }
