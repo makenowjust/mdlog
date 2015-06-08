@@ -51,15 +51,34 @@ $ npm install --save mdlog
 mdlogBuilder = require('mdlog');
 ```
 
-#### `mdlog = mdlogBuilder(colorScheme = require('mdlog/color/default'))`
+#### `mdlog = mdlogBuilder(colorScheme)`
+
+`mdlogBuilder` is builder of `mdlog` function.
+
+An argument `colorScheme` is color scheme `Object` (see [color directory](https://github.com/MakeNowJust/mdlog/tree/master/color)),
+its default value is `colorScheme = require('mdlog/color/default.json')`.
+
+It returns `mdlog` function.
 
 - - -
 
 #### `mdlog(markdown)`
 
+`mdlog` output styled markdown text into `console`.
+
+It uses `mdlogBuilder.conver` function to convert Markdown text into styled text.
+
+It returns `undefined`.
+
 - - -
 
-#### `mdlogBuilder.convert(markdown, colorScheme = require('mdlog/color/default'))`
+#### `mdlogBuilder.convert(markdown, colorScheme)`
+
+`convert` converts `markdown` text into styled text with `colorScheme`.
+
+It uses [mdast](https://github.com/wooorm/mdast) as Markdown parser.
+
+It returns an `Array` to pass into `console.log` as arguments.
 
 - - -
 
