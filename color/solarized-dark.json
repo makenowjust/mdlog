@@ -1,0 +1,18 @@
+{
+  "paragraph": {
+    "color": "#586e75"
+  },
+  "code": {
+    "color": "#93a1a1"
+  },
+  "inlineCode": {
+    "color": "#93a1a1",
+    "background": "#002b36"
+  },
+  "link": {
+    "color": "#dc322f"
+  },
+  "image": {
+    "color": "#268bd2"
+  }
+}
