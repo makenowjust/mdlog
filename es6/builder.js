@@ -5,7 +5,6 @@ import mdast from 'mdast';
 
 // import configuration files.
 import mdastOpt     from '../config/mdast.json';
-import rule         from '../config/rule.json';
 import style        from '../config/style.json';
 import defaultColor from '../color/default.json';
 
@@ -17,7 +16,7 @@ log = console.log;
 //
 // An argument `Convert` is the subclass of `Convert` class
 // (e.g. `NodeConvert` or `BrowserConvert`.)
-export default function mdlogBuilderBuilder(Convert) {
+export default function mdlogBuilderBuilder(Convert, rule) {
 
   // `mdlogBuilder` is the builder for `mdlog` function.
   //

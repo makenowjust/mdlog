@@ -1,1 +1,1 @@
-module.exports = require('./es5/builder')(require('./es5/browser/convert'));
+module.exports = require('./es5/builder')(require('./es5/browser/convert'), require('./config/rule.json'));
