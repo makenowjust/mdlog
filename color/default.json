@@ -1,10 +1,10 @@
 {
   "code": {
-    "color": "#3a3a3a"
+    "color": "black"
   },
   "inlineCode": {
-    "color": "#3a3a3a",
-    "background": "#fcfcfc"
+    "color": "black",
+    "background": "white"
   },
   "link": {
     "color": "magenta"
