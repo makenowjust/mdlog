@@ -1,5 +1,7 @@
 # mdlog
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/MakeNowJust/mdlog.svg)](https://greenkeeper.io/)
+
 Markdown on `console.log`
 
 [![npm](https://img.shields.io/npm/v/mdlog.svg)](https://www.npmjs.com/package/mdlog)
