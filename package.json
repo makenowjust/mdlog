@@ -36,13 +36,13 @@
     "sample:browser": "webpack-dev-server --content-base ./sample --config ./sample/webpack.config.js"
   },
   "dependencies": {
-    "color-string": "^0.3.0",
-    "lodash": "^3.9.2",
-    "mdast": "^0.21.1"
+    "color-string": "^1.4.0",
+    "lodash": "^4.17.4",
+    "mdast": "^3.0.0"
   },
   "devDependencies": {
-    "babel": "^5.4.7",
+    "babel": "^6.5.2",
     "json-loader": "^0.5.1",
-    "webpack-dev-server": "^1.9.0"
+    "webpack-dev-server": "^2.3.0"
   }
 }
